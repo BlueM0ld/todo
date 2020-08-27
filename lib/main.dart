@@ -24,7 +24,26 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final _textTask = TextEditingController();
-  var _listOfTasks = [];
+  var _listOfTasks = [
+    "B",
+    "B",
+    "B",
+    "B",
+    "A",
+    "A",
+    "B",
+    "B",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "f",
+    "f",
+  ];
 
   @override
   void dispose() {
@@ -56,15 +75,13 @@ class _HomeState extends State<Home> {
         title: Text("TODO"),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            TextField(
-              controller: _textTask,
-            ),
-            buildViewTasks()
-          ],
-        ),
+      body: Column(
+        children: <Widget>[
+          TextField(
+            controller: _textTask,
+          ),
+          new Expanded(child: buildViewTasks())
+        ],
       ),
       floatingActionButton: FlatButton(
         onPressed: () {
