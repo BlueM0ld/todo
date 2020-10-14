@@ -47,7 +47,9 @@ class _HomeState extends State<Home> {
     setState(() => _listOfTasks.removeAt(index));
   }
 
-  /// Put the item in the textbox and removes the task from the list to prevent duplicates
+  /// Put the item in the textbox and removes
+  /// the task from the list to prevent duplicates
+
   void _editItem(int index) {
     setState(() {
       _textTask.text = _listOfTasks[index].toString();
