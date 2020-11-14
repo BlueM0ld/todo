@@ -26,7 +26,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final List<Widget> _children = [SecondScreen(), FirstScreen(), ThirdScreen()];
+  final List<Widget> _children = [FirstScreen(), SecondScreen(), ThirdScreen()];
   int _selectedIndex = 0;
 
   void _selectNavIcon(int index) {
@@ -58,7 +58,7 @@ class _HomeState extends State<Home> {
             label: 'List',
           ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.add_alert), label: 'Reminders')
+              icon: Icon(Icons.calendar_today_rounded), label: 'Calendar')
         ],
       ),
     ));

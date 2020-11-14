@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
-class FirstScreen extends StatefulWidget {
+class SecondScreen extends StatefulWidget {
   @override
-  _FirstScreenState createState() => _FirstScreenState();
+  _SecondScreenState createState() => _SecondScreenState();
 }
 
-class _FirstScreenState extends State<FirstScreen> {
+class _SecondScreenState extends State<SecondScreen> {
   final _textTask = TextEditingController();
   var _listOfTasks = [];
 
