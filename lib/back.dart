@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'editTask.dart';
 
 class SecondScreen extends StatefulWidget {
   @override
@@ -85,9 +86,15 @@ class _SecondScreenState extends State<SecondScreen> {
         ],
       ),
       floatingActionButton: FlatButton(
+        // onPressed: () {
+        //   addToList(_textTask.text); // add to list view
+        //   _textTask.text = ""; // remove the task from the text field
+        // },
         onPressed: () {
-          addToList(_textTask.text); // add to list view
-          _textTask.text = ""; // remove the task from the text field
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => EditTask()),
+          );
         },
         child: Icon(Icons.add),
       ),
