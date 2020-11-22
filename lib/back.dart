@@ -8,14 +8,12 @@ class SecondScreen extends StatefulWidget {
 }
 
 class _SecondScreenState extends State<SecondScreen> {
-  final _textTask = TextEditingController();
   var _listOfTasks = [];
 
   @override
 
   /// dispose method removes the widget
   void dispose() {
-    _textTask.dispose();
     super.dispose();
   }
 
@@ -34,12 +32,12 @@ class _SecondScreenState extends State<SecondScreen> {
   /// Put the item in the textbox and removes
   /// the task from the list to prevent duplicates
 
-  void _editItem(int index) {
-    setState(() {
-      _textTask.text = _listOfTasks[index].toString();
-      _listOfTasks.removeAt(index);
-    });
-  }
+  // void _editItem(int index) {
+  //   setState(() {
+  //     _textTask.text = _listOfTasks[index].toString();
+  //     _listOfTasks.removeAt(index);
+  //   });
+  // }
 
   Widget buildViewTasks() {
     return ListView.builder(
@@ -64,7 +62,7 @@ class _SecondScreenState extends State<SecondScreen> {
             caption: 'Edit',
             color: Colors.blue,
             icon: Icons.edit,
-            onTap: () => _editItem(index)),
+            onTap: () => null),
         IconSlideAction(
             caption: 'Delete',
             color: Colors.red,
@@ -78,23 +76,15 @@ class _SecondScreenState extends State<SecondScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-        children: <Widget>[
-          TextField(
-            controller: _textTask,
-          ),
-          new Expanded(child: buildViewTasks())
-        ],
+        children: <Widget>[new Expanded(child: buildViewTasks())],
       ),
       floatingActionButton: FlatButton(
-        // onPressed: () {
-        //   addToList(_textTask.text); // add to list view
-        //   _textTask.text = ""; // remove the task from the text field
-        // },
-        onPressed: () {
-          Navigator.push(
+        onPressed: () async {
+          final result = await Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => EditTask()),
           );
+          addToList(result[0]);
         },
         child: Icon(Icons.add),
       ),
