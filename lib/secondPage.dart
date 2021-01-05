@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:todo/taskStructure.dart';
 import 'editTask.dart';
+import 'thirdPage.dart';
+import 'addTask.dart';
+import 'taskStructure.dart';
 
 class SecondScreen extends StatefulWidget {
   @override
@@ -8,7 +12,8 @@ class SecondScreen extends StatefulWidget {
 }
 
 class _SecondScreenState extends State<SecondScreen> {
-  var _listOfTasks = [];
+  // var _listOfTasks = [];
+  List<TaskStructure> _listOfTasks = [];
 
   @override
 
@@ -18,8 +23,8 @@ class _SecondScreenState extends State<SecondScreen> {
   }
 
   /// verification function for empty tasks
-  void addToList(String _task) {
-    if (_task.isNotEmpty || _task.length > 0) {
+  void addToList(TaskStructure _task) {
+    if (_task.getTaskTitle.isNotEmpty || _task.getTaskTitle.length > 0) {
       setState(() => _listOfTasks.add(_task));
     }
   }
@@ -32,12 +37,11 @@ class _SecondScreenState extends State<SecondScreen> {
   /// Put the item in the textbox and removes
   /// the task from the list to prevent duplicates
 
-  // void _editItem(int index) {
-  //   setState(() {
-  //     _textTask.text = _listOfTasks[index].toString();
-  //     _listOfTasks.removeAt(index);
-  //   });
-  // }
+  void _editItem(int index) {
+    setState(() {
+      _listOfTasks.removeAt(index);
+    });
+  }
 
   Widget buildViewTasks() {
     return ListView.builder(
@@ -55,14 +59,29 @@ class _SecondScreenState extends State<SecondScreen> {
       actionExtentRatio: 0.25,
       child: Container(
         color: Colors.white,
-        child: ListTile(title: Text(_listOfTasks[index])),
+        child: ListTile(
+          title: Text(_listOfTasks[index].getTaskTitle),
+          subtitle: Text(_listOfTasks[index].getTaskLong),
+          trailing: Text(_listOfTasks[index].getDate),
+        ),
       ),
       actions: <Widget>[
         IconSlideAction(
             caption: 'Edit',
             color: Colors.blue,
             icon: Icons.edit,
-            onTap: () => null),
+            onTap: () async {
+              var result = await Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) {
+                  Widget editTask = EditTask(task: _listOfTasks[index]);
+                  ThirdScreen(eventTask: _listOfTasks[index]);
+                  return editTask;
+                }),
+              );
+              _editItem(index);
+              addToList(result);
+            }),
         IconSlideAction(
             caption: 'Delete',
             color: Colors.red,
@@ -82,9 +101,9 @@ class _SecondScreenState extends State<SecondScreen> {
         onPressed: () async {
           final result = await Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => EditTask()),
+            MaterialPageRoute(builder: (context) => AddTask()),
           );
-          addToList(result[0]);
+          addToList(result);
         },
         child: Icon(Icons.add),
       ),

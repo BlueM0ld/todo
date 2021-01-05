@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 import 'taskStructure.dart';
 import 'package:date_time_picker/date_time_picker.dart';
+// import 'package:path/path.dart';
+// import 'package:sqflite/sqflite.dart';
 
-class EditTask extends StatefulWidget {
-  final TaskStructure task;
-  EditTask({Key key, this.task}) : super(key: key);
-
+class AddTask extends StatefulWidget {
   @override
-  _EditTaskState createState() => _EditTaskState();
+  _AddTaskState createState() => _AddTaskState();
 }
 
-class _EditTaskState extends State<EditTask> {
-//final holders from the text page
+class _AddTaskState extends State<AddTask> {
+  final _taskTitleController = TextEditingController();
+  final _taskLongController = TextEditingController();
 
   String selectedDate = DateFormat('d MMM, yyy').format(DateTime.now());
 
@@ -22,17 +21,37 @@ class _EditTaskState extends State<EditTask> {
     });
     return selectedDate;
   }
+  // Future<void> _selectDate(BuildContext context) {
+  //   // final DateTime picked = await showDatePicker(
+  //   //     context: context,
+  //   //     initialDate: selectedDate,
+  //   //     firstDate: DateTime(2015, 8),
+  //   //     lastDate: DateTime(2101));
+  //   DateTimePicker(
+  //       dateMask: 'd MMM, yyy',
+  //       initialValue: DateTime.now().toString(),
+  //       firstDate: DateTime(2000),
+  //       lastDate: DateTime(2100),
+  //       icon: Icon(Icons.access_alarm_outlined),
+  //       dateLabelText: 'Date',
+  //       timeLabelText: "Hour",
+  //       onChanged: (val) => print(val),
+  //       validator: (val) {
+  //         print(val);
+  //         return null;
+  //       },
+  //       onSaved: (val) {
+  //         setState(() {
+  //           selectedDate = val;
+  //         });
+  //       });
+  // }
 
   @override
   Widget build(BuildContext context) {
-    var _taskTitleController =
-        TextEditingController(text: widget.task.getTaskTitle.toString());
-    var _taskLongController =
-        TextEditingController(text: widget.task.getTaskLong.toString());
-
     return Scaffold(
       appBar: AppBar(
-        title: Text("Edit Tasks"),
+        title: Text("Add Task"),
       ),
       body: ListView(
         padding: EdgeInsets.all(24),
@@ -65,7 +84,7 @@ class _EditTaskState extends State<EditTask> {
                   DateTimePicker(
                       type: DateTimePickerType.dateTimeSeparate,
                       dateMask: 'd MMM, yyy',
-                      initialValue: widget.task.getDate,
+                      initialValue: DateTime.now().toString(),
                       firstDate: DateTime(2000),
                       lastDate: DateTime(2100),
                       icon: Icon(Icons.calendar_today_rounded),
@@ -87,7 +106,7 @@ class _EditTaskState extends State<EditTask> {
           Navigator.pop(
               context,
               new TaskStructure(_taskTitleController.text,
-                  _taskLongController.text, selectedDate.toString()));
+                  _taskLongController.text, selectedDate));
         },
         child: Icon(Icons.check),
       ),

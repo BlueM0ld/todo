@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'taskStructure.dart';
 // import 'package:intl/date_symbol_data_local.dart'; USE THIS LATER
 
 class ThirdScreen extends StatefulWidget {
+  final TaskStructure eventTask;
+  ThirdScreen({Key key, this.eventTask}) : super(key: key);
+
   @override
   _ThirdScreenState createState() => _ThirdScreenState();
 }
